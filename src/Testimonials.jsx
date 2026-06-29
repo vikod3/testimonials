@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef } from 'react'
 import './Testimonials.css'
-import portrait from './assets/testimonials/portrait.png'
+import portrait from './assets/testimonials/portratitnew.png'
 import quoteIcon from './assets/image-removebg-preview.png'
 
 // Ported from Testimonials.dc.html (Claude Design export).
@@ -27,9 +27,9 @@ const cfg = {
   wRole: 500,
   wViewMore: 400,
   // Portrait
-  imgSize: 1150,
-  imgX: -665,
-  imgY: -35,
+  imgSize: 390,
+  imgX: -29,
+  imgY: 0,
 }
 
 // Shared orange glow for all accent-colored elements (except the View-more circle).
