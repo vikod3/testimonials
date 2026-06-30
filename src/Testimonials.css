@@ -310,8 +310,8 @@
     right: auto;
     top: auto;
     width: 100% !important;
-    height: 340px;
-    background-size: cover !important;
+    aspect-ratio: 3 / 4;
+    background-size: contain !important;
     background-position: center top !important;
     order: 3;
     flex-shrink: 0;
