@@ -42,15 +42,20 @@ export default function Testimonials() {
         }
         return
       }
-      const s = window.innerHeight / 675
+      const portraitRatio = 0.3
+      const contentWidth = window.innerWidth * (1 - portraitRatio)
+      const sH = window.innerHeight / 675
+      const sW = contentWidth / 900
+      const s = Math.min(sH, sW)
       if (frameRef.current) {
         frameRef.current.style.transform = `scale(${s})`
       }
       const p = portraitRef.current
       if (p) {
-        p.style.width = `${362 * s}px`
-        p.style.backgroundSize = `${cfg.imgSize * s}px auto`
-        p.style.backgroundPosition = `${cfg.imgX * s}px ${cfg.imgY * s}px`
+        const pw = window.innerWidth * portraitRatio
+        p.style.width = `${pw}px`
+        p.style.backgroundSize = `${pw}px auto`
+        p.style.backgroundPosition = `center ${cfg.imgY * s}px`
       }
     }
     window.addEventListener('resize', fit)
