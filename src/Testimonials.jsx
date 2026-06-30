@@ -3,19 +3,12 @@ import './Testimonials.css'
 import portrait from './assets/testimonials/portratitnew.png'
 import quoteIcon from './assets/image-removebg-preview.png'
 
-// Ported from Testimonials.dc.html (Claude Design export).
-// Defaults below come from the design's prop definitions.
 const cfg = {
-  // Position · Heading block
   tLeft: 'translate(-2px, -34px) scale(0.95)',
-  // Position · Stats
   tStats: 'translate(4px, -24px) scale(0.7)',
-  // Position · View more
   tViewMore: 'translate(4px, -20px) scale(0.85)',
-  // Position · Quotes
   tQuote1: 'translate(0px, 0px) scale(0.9)',
   tQuote2: 'translate(0px, 0px) scale(0.9)',
-  // Font weights
   wEyebrow: 600,
   wHeadline: 400,
   wSubtext: 400,
@@ -26,13 +19,11 @@ const cfg = {
   wName: 500,
   wRole: 500,
   wViewMore: 400,
-  // Portrait
   imgSize: 390,
   imgX: -29,
   imgY: 0,
 }
 
-// Shared orange glow for all accent-colored elements (except the View-more circle).
 const glow = '0 0 8px rgba(238,122,24,0.45)'
 
 export default function Testimonials() {
@@ -40,7 +31,17 @@ export default function Testimonials() {
   const portraitRef = useRef(null)
 
   useEffect(() => {
+    const isMobile = () => window.innerWidth <= 768
     const fit = () => {
+      if (isMobile()) {
+        if (frameRef.current) frameRef.current.style.transform = ''
+        if (portraitRef.current) {
+          portraitRef.current.style.width = ''
+          portraitRef.current.style.backgroundSize = ''
+          portraitRef.current.style.backgroundPosition = ''
+        }
+        return
+      }
       const s = window.innerHeight / 675
       if (frameRef.current) {
         frameRef.current.style.transform = `scale(${s})`
@@ -67,331 +68,118 @@ export default function Testimonials() {
           </filter>
         </defs>
       </svg>
-      <div className="testimonials-frame-wrapper">
-      <div
-        ref={frameRef}
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: 1200,
-          height: 675,
-          overflow: 'visible',
-          transformOrigin: 'top left',
-        }}
-      >
-        {/* subtle vertical seam */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 480,
-            top: 0,
-            width: 1,
-            height: '100%',
-            background:
-              'linear-gradient(180deg,rgba(160,140,120,0) 0%,rgba(160,140,120,.12) 50%,rgba(160,140,120,0) 100%)',
-          }}
-        />
 
-        {/* ===== LEFT COLUMN ===== */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 68,
-            top: 147,
-            width: 400,
-            transform: cfg.tLeft,
-            transformOrigin: 'left top',
-          }}
-        >
-          <div
-            style={{
-              fontSize: 7,
-              fontWeight: cfg.wEyebrow,
-              letterSpacing: 2.5,
-              color: '#ee7a18',
-            }}
-          >
-            TESTIMONIALS&nbsp;&nbsp;/&nbsp;&nbsp;RESULTS
-          </div>
-          <h1
-            style={{
-              marginTop: 22,
-              fontSize: 40,
-              lineHeight: 1.07,
-              fontWeight: cfg.wHeadline,
-              letterSpacing: '-1.6px',
-              color: '#2c2d2f',
-              // Faux "in-between" weight: 400 + a stroke. Sub-px widths are
-              // imperceptible, so use ~1px and paint the stroke behind the
-              // fill (paint-order) so it only thickens outward.
-              WebkitTextStroke: '0.3px #2c2d2f',
-              paintOrder: 'stroke fill',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            Real impact.
-            <br />
-            Trusted by builders.
-          </h1>
-          <p
-            style={{
-              marginTop: 24,
-              fontSize: 16,
-              lineHeight: 1.5,
-              fontWeight: cfg.wSubtext,
-              color: '#8e8a83',
-              // Same faux in-between weight as the headline, in the subtext color.
-              WebkitTextStroke: '0.35px #8e8a83',
-              width: 300,
-            }}
-          >
-            We partner with forward-thinking teams to deliver AI products that
-            perform.
-          </p>
-        </div>
-
-        {/* stats */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 68,
-            top: 377,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 60,
-            transform: cfg.tStats,
-            transformOrigin: 'left top',
-          }}
-        >
-          {[
-            { label: 'TIME TO VALUE', num: '3.2x', sub: 'faster' },
-            { label: 'MODEL ACCURACY', num: '+21%', sub: 'average lift' },
-          ].map((stat, i) => (
-            <Fragment key={stat.label}>
-              {i > 0 && (
-                <div
-                  style={{
-                    alignSelf: 'stretch',
-                    width: 1.2,
-                    marginLeft: 28,
-                    marginRight: -22,
-                    background: '#ddd4cf',
-                  }}
-                />
-              )}
-              <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: '50%',
-                    background: '#ee7a18',
-                    display: 'inline-block',
-                    boxShadow: glow,
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: 10,
-                    fontWeight: cfg.wStatLabel,
-                    letterSpacing: 1.5,
-                    color: '#635e58',
-                    WebkitTextStroke: '0.3px #635e58',
-                    paintOrder: 'stroke fill',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {stat.label}
-                </span>
-              </div>
-              <div
-                style={{
-                  marginTop: 28,
-                  fontSize: 52,
-                  fontWeight: cfg.wStatNum,
-                  letterSpacing: '-1px',
-                  color: '#ee7a18',
-                  // Subtle glow in the number's own color.
-                  textShadow: glow,
-                  WebkitTextStroke: '0.5px #ee7a18',
-                  // Avenir Next only on the big numbers (3.2x, +21%).
-                  fontFamily:
-                    "'Avenir Next Cyr', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif",
-                }}
-              >
-                {stat.num}
-              </div>
-              <div
-                style={{
-                  marginTop: 6,
-                  fontSize: 19,
-                  fontWeight: cfg.wStatSub,
-                  color: '#8e8a83',
-                  WebkitTextStroke: '0.5px #8e8a83',
-                  paintOrder: 'stroke fill',
-                }}
-              >
-                {stat.sub}
-              </div>
-              </div>
-            </Fragment>
-          ))}
-        </div>
-
-        {/* view more */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 68,
-            top: 598,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-            transform: cfg.tViewMore,
-            transformOrigin: 'left top',
-          }}
-        >
-          <span
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: '50%',
-              background: '#ee7a18',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M4 12L12 4M12 4H5.5M12 4V10.5"
-                stroke="#fff"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-          <span
-            style={{
-              fontSize: 14,
-              fontWeight: cfg.wViewMore,
-              color: '#3a3a3c',
-              WebkitTextStroke: '0.55px #3a3a3c',
-            }}
-          >
-            View more case studies
-          </span>
-        </div>
-
-        {/* ===== MIDDLE COLUMN — TESTIMONIALS ===== */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 530,
-            top: 52,
-            width: 368,
-            transform: cfg.tQuote1,
-            transformOrigin: 'left top',
-          }}
-        >
-          <img
-            src={quoteIcon}
-            alt=""
-            style={{ width: 56, height: 'auto', filter: 'url(#quote-recolor)', marginLeft: -10 }}
-          />
-          <p
-            style={{
-              marginTop: 14,
-              fontSize: 19,
-              lineHeight: 1.42,
-              fontWeight: cfg.wQuote,
-              color: '#3a3a3c',
-              width: 238,
-            }}
-          >
-            Nexora helped us go from prototype to production in record time. The
-            results speak for themselves.
-          </p>
-          <div style={{ marginTop: 22, width: 18, height: 2, background: '#ee7a18', boxShadow: glow }} />
-          <div style={{ marginTop: 18, fontSize: 15, fontWeight: cfg.wName, color: '#2f2f31' }}>
-            Emily Park
-          </div>
-          <div style={{ marginTop: 4, fontSize: 14, fontWeight: cfg.wRole, color: '#9a958d' }}>
-            Head of Product, Altura
-          </div>
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            left: 530,
-            top: 326,
-            width: 368,
-            height: 1,
-            background: 'rgba(120,105,90,.22)',
-            transform: cfg.tQuote2,
-            transformOrigin: 'left top',
-          }}
-        />
-
-        <div
-          style={{
-            position: 'absolute',
-            left: 530,
-            top: 342,
-            width: 368,
-            transform: cfg.tQuote2,
-            transformOrigin: 'left top',
-          }}
-        >
-          <img
-            src={quoteIcon}
-            alt=""
-            style={{ width: 56, height: 'auto', filter: 'url(#quote-recolor)', marginLeft: -10 }}
-          />
-          <p
-            style={{
-              marginTop: 14,
-              fontSize: 19,
-              lineHeight: 1.42,
-              fontWeight: cfg.wQuote,
-              color: '#3a3a3c',
-              width: 238,
-            }}
-          >
-            Their team combines deep AI expertise with a product mindset. A true
-            partner.
-          </p>
-          <div style={{ marginTop: 22, width: 18, height: 2, background: '#ee7a18', boxShadow: glow }} />
-          <div style={{ marginTop: 18, fontSize: 15, fontWeight: cfg.wName, color: '#2f2f31' }}>
-            Daniel Kim
-          </div>
-          <div style={{ marginTop: 4, fontSize: 14, fontWeight: cfg.wRole, color: '#9a958d' }}>
-            CTO, Veridian
-          </div>
-        </div>
-      </div>
-      </div>
-
-      {/* ===== RIGHT — PORTRAIT (pinned to viewport edge, height-scaled) ===== */}
+      {/* Portrait image */}
       <div
         ref={portraitRef}
         className="testimonials-portrait"
         style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          height: '100%',
-          width: 362,
           backgroundImage: `url(${portrait})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: `${cfg.imgSize}px auto`,
           backgroundPosition: `${cfg.imgX}px ${cfg.imgY}px`,
         }}
       />
+
+      {/* Main content frame */}
+      <div className="testimonials-frame-wrapper">
+        <div
+          ref={frameRef}
+          className="testimonials-frame"
+        >
+          {/* subtle vertical seam */}
+          <div className="testimonials-seam" />
+
+          {/* ===== LEFT COLUMN ===== */}
+          <div className="testimonials-left">
+            <div className="testimonials-eyebrow">
+              TESTIMONIALS&nbsp;&nbsp;/&nbsp;&nbsp;RESULTS
+            </div>
+            <h1 className="testimonials-headline">
+              Real impact.
+              <br />
+              Trusted by builders.
+            </h1>
+            <p className="testimonials-subtext">
+              We partner with forward-thinking teams to deliver AI products that
+              perform.
+            </p>
+          </div>
+
+          {/* stats */}
+          <div className="testimonials-stats">
+            {[
+              { label: 'TIME TO VALUE', num: '3.2x', sub: 'faster' },
+              { label: 'MODEL ACCURACY', num: '+21%', sub: 'average lift' },
+            ].map((stat, i) => (
+              <Fragment key={stat.label}>
+                {i > 0 && <div className="testimonials-stat-divider" />}
+                <div className="testimonials-stat">
+                  <div className="testimonials-stat-label-row">
+                    <span className="testimonials-stat-dot" />
+                    <span className="testimonials-stat-label">{stat.label}</span>
+                  </div>
+                  <div className="testimonials-stat-num">{stat.num}</div>
+                  <div className="testimonials-stat-sub">{stat.sub}</div>
+                </div>
+              </Fragment>
+            ))}
+          </div>
+
+          {/* view more */}
+          <div className="testimonials-view-more">
+            <span className="testimonials-view-more-circle">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4 12L12 4M12 4H5.5M12 4V10.5"
+                  stroke="#fff"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <span className="testimonials-view-more-text">
+              View more case studies
+            </span>
+          </div>
+
+          {/* ===== QUOTES COLUMN ===== */}
+          <div className="testimonials-quotes">
+            <div className="testimonials-quote">
+              <img
+                src={quoteIcon}
+                alt=""
+                className="testimonials-quote-icon"
+              />
+              <p className="testimonials-quote-text">
+                Nexora helped us go from prototype to production in record time. The
+                results speak for themselves.
+              </p>
+              <div className="testimonials-quote-bar" />
+              <div className="testimonials-quote-name">Emily Park</div>
+              <div className="testimonials-quote-role">Head of Product, Altura</div>
+            </div>
+
+            <div className="testimonials-quote-separator" />
+
+            <div className="testimonials-quote">
+              <img
+                src={quoteIcon}
+                alt=""
+                className="testimonials-quote-icon"
+              />
+              <p className="testimonials-quote-text">
+                Their team combines deep AI expertise with a product mindset. A true
+                partner.
+              </p>
+              <div className="testimonials-quote-bar" />
+              <div className="testimonials-quote-name">Daniel Kim</div>
+              <div className="testimonials-quote-role">CTO, Veridian</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
