@@ -66,3 +66,32 @@
   background: #e9e4de;
   font-family: 'Satoshi', -apple-system, 'Helvetica Neue', Arial, sans-serif;
 }
+
+@media (max-width: 768px) {
+  .testimonials-root {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonials-root .testimonials-frame-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    flex-shrink: 0;
+  }
+
+  .testimonials-root .testimonials-portrait {
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: 320px;
+    background-size: cover !important;
+    background-position: center top !important;
+    flex-shrink: 0;
+    order: 2;
+  }
+}

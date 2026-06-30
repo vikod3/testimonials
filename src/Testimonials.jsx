@@ -67,6 +67,7 @@ export default function Testimonials() {
           </filter>
         </defs>
       </svg>
+      <div className="testimonials-frame-wrapper">
       <div
         ref={frameRef}
         style={{
@@ -373,10 +374,12 @@ export default function Testimonials() {
           </div>
         </div>
       </div>
+      </div>
 
       {/* ===== RIGHT — PORTRAIT (pinned to viewport edge, height-scaled) ===== */}
       <div
         ref={portraitRef}
+        className="testimonials-portrait"
         style={{
           position: 'absolute',
           right: 0,
